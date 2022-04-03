@@ -243,7 +243,7 @@ export default {
       )
     },
     nextBetterFee() {
-      const currentFee = this.currentWithdrawalFee
+      const currentFee = this.currentWithdrawalFee()
 
       if(!currentFee)
         return 0
@@ -251,9 +251,9 @@ export default {
       return withdrawalFee.nextBetterFee(currentFee)
     },
     usdSavedBetterFee() {
-      const currentFee = this.currentWithdrawalFee
-      const usdValue = this.usdShareValue
-      const nextBetterFee = this.nextBetterFee
+      const currentFee = this.currentWithdrawalFee()
+      const usdValue = this.usdShareValue()
+      const nextBetterFee = this.nextBetterFee()
 
       if (!currentFee || !usdValue || !nextBetterFee) return 0
 

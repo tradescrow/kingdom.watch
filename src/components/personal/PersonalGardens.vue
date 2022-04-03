@@ -27,13 +27,12 @@
               </div>
             </div>
             <div v-for="poolId in userPools[expansion]" :key="poolId">
-              <PersonalGarden :pool-id="poolId" :user-info="userInfos[expansion][poolId]" :user-address="userAddress"/>
+              <PersonalGarden v-if="!(poolId instanceof Array) && poolId" :pool-id="poolId" :user-info="userInfos[expansion][poolId]" :user-address="userAddress"/>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -89,7 +88,6 @@ export default {
             if (userInfo.amount > 0) {
               this.userInfos[expansion][i] = userInfo
               if (this.userPools[expansion].indexOf(i) === -1) {
-                console.log(i)
                 this.userPools[expansion].push(i)
               }
             }
