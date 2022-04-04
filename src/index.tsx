@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './utils/reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider, CssBaseline } from "@mui/material";
+import { SnackbarProvider } from 'notistack';
 import Theme from './theme'
 
 ReactDOM.render(
@@ -12,7 +13,9 @@ ReactDOM.render(
     <BrowserRouter>
       <ThemeProvider theme={Theme}>
         <CssBaseline />
-        <App />
+        <SnackbarProvider maxSnack={3} >
+          <App />
+        </SnackbarProvider>
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,

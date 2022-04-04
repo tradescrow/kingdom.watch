@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Box, Grid, Typography, TextField, Button, ButtonGroup } from '@mui/material'
 import { NavLink } from "react-router-dom";
 import DFKLogo from '../../assets/dfk/logo.png'
+import {useSnackbar} from "notistack";
 
 const NavLinkStyle = {
   textDecoration: "none",
@@ -12,6 +13,52 @@ const NavButtonStyle = {
   textTransform: "none"
 }
 const Header = () => {
+  const { enqueueSnackbar } = useSnackbar();
+
+  const [btnDisabled, setBtnDisabled] = useState<boolean>(false)
+  const [ethereum, setEthereum] = useState(null)
+  const [account, setAccount] = useState<string|null>(null)
+
+  const checkConnected = async () => {
+    if (!ethereum) return
+    setBtnDisabled(true)
+    try {
+      // @ts-ignore
+      const accounts = await ethereum.request({ method: "eth_accounts" });
+      if (accounts.length === 0) {
+        setAccount(null)
+        setBtnDisabled(false)
+        return
+      }
+      setAccount(accounts[0]);
+    } catch (e: any) {
+      setBtnDisabled(false)
+      enqueueSnackbar(e.message, {variant: "error"})
+    }
+  }
+  const connect = async () => {
+    if (!ethereum) return
+    await checkConnected()
+    if (account) return
+    setBtnDisabled(true)
+    try {
+      // @ts-ignore
+      await ethereum.request({ method: "eth_requestAccounts" });
+      await checkConnected()
+    } catch (e: any) {
+      setBtnDisabled(false)
+      enqueueSnackbar(e.message, {variant: "error"})
+    }
+  }
+
+  useEffect(() => {
+    if (ethereum) return
+    // @ts-ignore
+    if (!window.ethereum) return
+    // @ts-ignore
+    setEthereum(window.ethereum)
+  })
+
   return (
     <Box sx={{ marginBottom: 3 }}>
       <Grid container spacing={2}>
@@ -97,7 +144,7 @@ const Header = () => {
           />
           <ButtonGroup sx={{ mr: 2 }}>
             <Button variant="contained">Set</Button>
-            <Button variant="contained">Connect</Button>
+            <Button variant="contained" disabled={btnDisabled} onClick={connect}>Connect</Button>
           </ButtonGroup>
         </Grid>
       </Grid>
@@ -113,8 +160,7 @@ export default Header
 //    return {
 //      copied: false,
 //      inputUserAddress: "",
-//      walletButtonDisabled: false,
-//      walletButtonText: "Connect"
+
 //    }
 //  },
 //  methods: {
@@ -127,44 +173,7 @@ export default Header
 //        this.copied = false
 //      }, 5000)
 //    },
-//    async checkConnected() {
-//      try {
-//        this.walletButtonDisabled = true;
-//        this.walletButtonText = "Checking..."
-//        const { ethereum } = window;
-//        if (!ethereum) {
-//          this.walletButtonText = "No Wallet"
-//          return;
-//        }
-//        const accounts = await ethereum.request({ method: "eth_accounts" });
-//        if (accounts.length === 0) {
-//          this.walletButtonDisabled = false;
-//          this.walletButtonText = "Connect"
-//          return;
-//        }
-//        this.setUserAddress(accounts[0]);
-//        this.inputUserAddress = accounts[0]
-//        this.walletButtonText = "Connected"
-//      } catch (e) {
-//        this.walletButtonDisabled = false;
-//        console.log(`Error | checkConnected | ${e.code} | ${e.message}`);
-//      }
-//    },
-//    async connect() {
-//      try {
-//        this.walletButtonText = "Connecting..."
-//        this.walletButtonDisabled = true;
-//        const { ethereum } = window;
-//        const accounts = await ethereum.request({ method: "eth_requestAccounts" });
-//        this.setUserAddress(accounts[0])
-//        this.inputUserAddress = accounts[0]
-//      } catch (e) {
-//        this.walletButtonDisabled = false
-//        this.walletButtonText = "Connect"
-//        console.log(`Error | connect | ${e.code} | ${e.message}`);
-//      }
-//    }
-//  },
+
 //  computed: {
 //    ...mapGetters(["storeUserAddress"])
 //  },
