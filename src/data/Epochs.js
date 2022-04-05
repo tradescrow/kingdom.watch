@@ -1,25 +1,25 @@
 const firstBlock = {
   sd: 16350367,
   cv: 8943,
-}
+};
 const blocksPerEpoch = {
   sd: 302400,
   cv: 302400,
-}
+};
 
 const blockSpeedSeconds = {
   sd: 2.0,
   cv: 2.0,
-}
+};
 
 const unlockStart = {
   sd: 5,
   cv: 5,
-}
+};
 const unlockWeeklyIncrease = {
   sd: 2,
   cv: 2,
-}
+};
 
 const multiplierSchedule = {
   sd: {
@@ -69,32 +69,35 @@ const multiplierSchedule = {
     21: 2,
     101: 1,
   },
-}
+};
 
 const getCurrentEpoch = (currentBlock, expansion) => {
-  const epoch = currentEpoch(currentBlock, expansion)
+  const epoch = currentEpoch(currentBlock, expansion);
 
-  return epochData(epoch, expansion)
-}
+  return epochData(epoch, expansion);
+};
 
 function currentEpoch(currentBlock, expansion) {
-  const diff = currentBlock - firstBlock[expansion]
+  const diff = currentBlock - firstBlock[expansion];
 
-  if (diff < 0)
-    throw `Invalid current block ${currentBlock} is less than first block ${firstBlock[expansion]}`
+  if (diff < 0) {
+    throw new Error(
+      `Invalid current block ${currentBlock} is less than first block ${firstBlock[expansion]}`
+    );
+  }
 
-  return Math.floor(diff / blocksPerEpoch[expansion]) + 1
+  return Math.floor(diff / blocksPerEpoch[expansion]) + 1;
 }
 
 function epochStartBlock(epoch, expansion) {
-  return firstBlock[expansion] + blocksPerEpoch[expansion] * (epoch - 1)
+  return firstBlock[expansion] + blocksPerEpoch[expansion] * (epoch - 1);
 }
 
 function secondsLeftUntilEpoch(currentBlock, epoch, expansion) {
   return (
     (epochStartBlock(epoch, expansion) - currentBlock) *
     blockSpeedSeconds[expansion]
-  )
+  );
 }
 
 function epochData(epoch, expansion) {
@@ -107,30 +110,39 @@ function epochData(epoch, expansion) {
     ),
     multiplier:
       multiplierSchedule[expansion][epoch < 20 ? epoch : epoch < 36 ? 20 : 36],
-  }
+  };
 }
 
 function timeLeftUntilEpochString(currentBlock, epoch, expansion) {
-  const nextEpochSeconds = secondsLeftUntilEpoch(currentBlock, epoch, expansion)
+  const nextEpochSeconds = secondsLeftUntilEpoch(
+    currentBlock,
+    epoch,
+    expansion
+  );
 
-  if (nextEpochSeconds < 0) return 'past time'
-  else if (nextEpochSeconds < 60) return 'imminent'
-  else if (nextEpochSeconds < 600) return 'less than 10 minutes'
-  else if (nextEpochSeconds < 3600)
-    return 'about ' + (nextEpochSeconds / 60).toFixed(1) + ' minutes'
-  else if (nextEpochSeconds < 86400)
-    return 'about ' + (nextEpochSeconds / 3600).toFixed(1) + ' hours'
-  else if (nextEpochSeconds < 7 * 86400)
-    return 'about ' + (nextEpochSeconds / 86400).toFixed(1) + ' days'
-  else if (nextEpochSeconds < 30 * 86400)
-    return 'about ' + (nextEpochSeconds / (7 * 86400)).toFixed(1) + ' weeks'
-  else
-    return 'about ' + (nextEpochSeconds / (30 * 86400)).toFixed(1) + ' months'
+  if (nextEpochSeconds < 0) {
+    return 'past time';
+  } else if (nextEpochSeconds < 60) {
+    return 'imminent';
+  } else if (nextEpochSeconds < 600) {
+    return 'less than 10 minutes';
+  } else if (nextEpochSeconds < 3600) {
+    return 'about ' + (nextEpochSeconds / 60).toFixed(1) + ' minutes';
+  } else if (nextEpochSeconds < 86400) {
+    return 'about ' + (nextEpochSeconds / 3600).toFixed(1) + ' hours';
+  } else if (nextEpochSeconds < 7 * 86400) {
+    return 'about ' + (nextEpochSeconds / 86400).toFixed(1) + ' days';
+  } else if (nextEpochSeconds < 30 * 86400) {
+    return 'about ' + (nextEpochSeconds / (7 * 86400)).toFixed(1) + ' weeks';
+  } else {
+    return 'about ' + (nextEpochSeconds / (30 * 86400)).toFixed(1) + ' months';
+  }
 }
 
-export default {
+export const Epochs = {
   getCurrentEpoch: getCurrentEpoch,
   epochData: epochData,
   secondsLeftUntilEpoch: secondsLeftUntilEpoch,
   timeLeftUntilEpochString: timeLeftUntilEpochString,
-}
+};
+export default Epochs;

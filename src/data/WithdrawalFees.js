@@ -31,43 +31,56 @@ const feeSchedule = [
     blocks: 0,
     fee: 25.0,
   },
-]
+];
 
-const reversedFeeSchedule = [...feeSchedule].reverse()
+const reversedFeeSchedule = [...feeSchedule].reverse();
 
 function getFee(blocks) {
-  if (blocks < 0) return 0
-
-  for (let info of feeSchedule) {
-    if (blocks >= info.blocks) return info.fee
+  if (blocks < 0) {
+    return 0;
   }
 
-  return 25.0
+  for (let info of feeSchedule) {
+    if (blocks >= info.blocks) {
+      return info.fee;
+    }
+  }
+
+  return 25.0;
 }
 
 function blocksBeforeNextLevel(blocksNow) {
-  if (blocksNow < 0) return 1e18
-
-  for (let info of reversedFeeSchedule) {
-    if (blocksNow < info.blocks) return info.blocks - blocksNow
+  if (blocksNow < 0) {
+    return 1e18;
   }
 
-  return 0
+  for (let info of reversedFeeSchedule) {
+    if (blocksNow < info.blocks) {
+      return info.blocks - blocksNow;
+    }
+  }
+
+  return 0;
 }
 
 function nextBetterFee(currentFee) {
-  if (currentFee <= 0.01) return 0.01
-
-  for (let info of reversedFeeSchedule) {
-    if (info.fee < currentFee) return info.fee
+  if (currentFee <= 0.01) {
+    return 0.01;
   }
 
-  return 25.0
+  for (let info of reversedFeeSchedule) {
+    if (info.fee < currentFee) {
+      return info.fee;
+    }
+  }
+
+  return 25.0;
 }
 
-export default {
+export const WithdrawalFees = {
   feeSchedule: feeSchedule,
   getFee: getFee,
   blocksBeforeNextLevel: blocksBeforeNextLevel,
   nextBetterFee: nextBetterFee,
-}
+};
+export default WithdrawalFees;

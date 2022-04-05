@@ -15,7 +15,7 @@ const top15bank = [
   '0x5027310c3620116587ab84278c8a5c34911e90c3',
   '0x7454f88ae2acbcfb13a66a15b1798c9400d9eadb',
   '0xacd41dec7efda46bde8e4bc512941f9216b98be8',
-]
+];
 
 // const potentialWhales = [
 //     "0x00d3be15cc9a9d071b6810531fbac7938c50ac39",
@@ -128,4 +128,4 @@ const top15bank = [
 //     "0xf9358cc0b2a2b8f20da1edd5d385e2d59a5370e3",
 // ]
 
-module.exports = top15bank
+module.exports = top15bank;

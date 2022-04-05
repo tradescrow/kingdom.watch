@@ -1,29 +1,31 @@
-export default {
+const user = {
   state() {
     return {
       userAddress: '',
       characterName: '',
-    }
+    };
   },
   getters: {
     storeUserAddress(state) {
-      return state.userAddress
+      return state.userAddress;
     },
     characterName(state) {
-      return state.characterName
+      return state.characterName;
     },
   },
   mutations: {
     setUserAddress(state, payload) {
-      state.userAddress = payload
+      state.userAddress = payload;
     },
     setCharacterName(state, payload) {
-      state.characterName = payload
+      state.characterName = payload;
     },
   },
   actions: {
     setUserAddress(context, payload) {
-      context.commit('setUserAddress', payload)
+      context.commit('setUserAddress', payload);
     },
   },
-}
+};
+
+export default user;

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 
 const HarmonyTokens = [
   {
@@ -61,34 +61,39 @@ const HarmonyTokens = [
     symbol: 'CRV',
     contract: '0x352cd428EFd6F31B5cae636928b7B84149cF369F',
   },
-]
+];
 
 async function getHarmonyPrices() {
-  const idPrices = await lookUpPrices(HarmonyTokens.map((x) => x.id))
-  const prices = {}
-  for (const bt of HarmonyTokens)
-    if (idPrices[bt.id]) prices[bt.contract.toLowerCase()] = idPrices[bt.id]
-  return prices
+  const idPrices = await lookUpPrices(HarmonyTokens.map((x) => x.id));
+  const prices = {};
+  for (const bt of HarmonyTokens) {
+    if (idPrices[bt.id]) {
+      prices[bt.contract.toLowerCase()] = idPrices[bt.id];
+    }
+  }
+  return prices;
 }
 
 const lookUpPrices = async function (id_array) {
-  const prices = {}
+  const prices = {};
   for (const id_chunk of chunk(id_array, 50)) {
-    let ids = id_chunk.join('%2C')
+    let ids = id_chunk.join('%2C');
     let res = (
       await axios.get(
         `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`
       )
-    ).data
+    ).data;
     for (const [key, v] of Object.entries(res)) {
-      if (v.usd) prices[key] = v
+      if (v.usd) {
+        prices[key] = v;
+      }
     }
   }
-  return prices
-}
+  return prices;
+};
 
 const chunk = (arr, n) =>
-  arr.length ? [arr.slice(0, n), ...chunk(arr.slice(n), n)] : []
+  arr.length ? [arr.slice(0, n), ...chunk(arr.slice(n), n)] : [];
 // function getParameterCaseInsensitive(object, key) {
 //     return object[Object.keys(object)
 //         .find(k => k.toLowerCase() === key.toLowerCase())
@@ -96,37 +101,37 @@ const chunk = (arr, n) =>
 // }
 
 function getUniPrices(token0, token1, prices, pool) {
-  const t0 = token0
-  let p0 = prices[token0]?.usd
-  const t1 = token1
-  let p1 = prices[token1]?.usd
+  const t0 = token0;
+  let p0 = prices[token0]?.usd;
+  const t1 = token1;
+  let p1 = prices[token1]?.usd;
 
   if (p0 == null && p1 == null) {
-    console.log(`Missing prices for tokens ${pool.token0} and ${pool.token1}.`)
-    return undefined
+    console.log(`Missing prices for tokens ${pool.token0} and ${pool.token1}.`);
+    return undefined;
   }
   if (t0?.decimals == null) {
-    console.log(`Missing information for token ${pool.token0}.`)
-    return undefined
+    console.log(`Missing information for token ${pool.token0}.`);
+    return undefined;
   }
   if (t1?.decimals == null) {
-    console.log(`Missing information for token ${pool.token1}.`)
-    return undefined
+    console.log(`Missing information for token ${pool.token1}.`);
+    return undefined;
   }
-  var q0 = pool.q0 / 10 ** t0.decimals
-  var q1 = pool.q1 / 10 ** t1.decimals
+  var q0 = pool.q0 / 10 ** t0.decimals;
+  var q1 = pool.q1 / 10 ** t1.decimals;
   if (p0 == null) {
-    p0 = (q1 * p1) / q0
-    prices[pool.token0] = { usd: p0 }
+    p0 = (q1 * p1) / q0;
+    prices[pool.token0] = { usd: p0 };
   }
   if (p1 == null) {
-    p1 = (q0 * p0) / q1
-    prices[pool.token1] = { usd: p1 }
+    p1 = (q0 * p0) / q1;
+    prices[pool.token1] = { usd: p1 };
   }
-  var tvl = q0 * p0 + q1 * p1
-  var price = tvl / pool.totalSupply
-  prices[pool.address] = { usd: price }
-  var staked_tvl = pool.staked * price
+  var tvl = q0 * p0 + q1 * p1;
+  var price = tvl / pool.totalSupply;
+  prices[pool.address] = { usd: price };
+  var staked_tvl = pool.staked * price;
   return {
     t0: t0,
     p0: p0,
@@ -137,10 +142,12 @@ function getUniPrices(token0, token1, prices, pool) {
     price: price,
     tvl: tvl,
     staked_tvl: staked_tvl,
-  }
+  };
 }
 
-export default {
+export const Prices = {
   getHarmonyPrices: getHarmonyPrices,
   poolPrices: getUniPrices,
-}
+};
+
+export default Prices;

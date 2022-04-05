@@ -47,6 +47,7 @@
       "prettier"
     ],
     "rules": {
+      "curly": "error",
       "prettier/prettier": "warn"
     }
   },

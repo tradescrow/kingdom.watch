@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Grid,
@@ -6,65 +6,75 @@ import {
   TextField,
   Button,
   ButtonGroup,
-} from '@mui/material'
-import { NavLink } from 'react-router-dom'
-import DFKLogo from '../../assets/dfk/logo.png'
-import { useSnackbar } from 'notistack'
+} from '@mui/material';
+import { NavLink } from 'react-router-dom';
+import DFKLogo from '../../assets/dfk/logo.png';
+import { useSnackbar } from 'notistack';
 
 const NavLinkStyle = {
   textDecoration: 'none',
   color: '#9e9e9e',
-}
+};
 
 const NavButtonStyle = {
   textTransform: 'none',
-}
+};
 const Header = () => {
-  const { enqueueSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar();
 
-  const [btnDisabled, setBtnDisabled] = useState<boolean>(false)
-  const [ethereum, setEthereum] = useState(null)
-  const [account, setAccount] = useState<string | null>(null)
+  const [btnDisabled, setBtnDisabled] = useState<boolean>(false);
+  const [ethereum, setEthereum] = useState(null);
+  const [account, setAccount] = useState<string | null>(null);
 
   const checkConnected = async () => {
-    if (!ethereum) return
-    setBtnDisabled(true)
+    if (!ethereum) {
+      return;
+    }
+    setBtnDisabled(true);
     try {
       // @ts-ignore
-      const accounts = await ethereum.request({ method: 'eth_accounts' })
+      const accounts = await ethereum.request({ method: 'eth_accounts' });
       if (accounts.length === 0) {
-        setAccount(null)
-        setBtnDisabled(false)
-        return
+        setAccount(null);
+        setBtnDisabled(false);
+        return;
       }
-      setAccount(accounts[0])
+      setAccount(accounts[0]);
     } catch (e: any) {
-      setBtnDisabled(false)
-      enqueueSnackbar(e.message, { variant: 'error' })
+      setBtnDisabled(false);
+      enqueueSnackbar(e.message, { variant: 'error' });
     }
-  }
+  };
   const connect = async () => {
-    if (!ethereum) return
-    await checkConnected()
-    if (account) return
-    setBtnDisabled(true)
+    if (!ethereum) {
+      return;
+    }
+    await checkConnected();
+    if (account) {
+      return;
+    }
+    setBtnDisabled(true);
     try {
       // @ts-ignore
-      await ethereum.request({ method: 'eth_requestAccounts' })
-      await checkConnected()
+      await ethereum.request({ method: 'eth_requestAccounts' });
+      await checkConnected();
     } catch (e: any) {
-      setBtnDisabled(false)
-      enqueueSnackbar(e.message, { variant: 'error' })
+      setBtnDisabled(false);
+      enqueueSnackbar(e.message, { variant: 'error' });
     }
-  }
+  };
 
   useEffect(() => {
-    if (ethereum) return
+    if (ethereum) {
+      return;
+    }
     // @ts-ignore
-    if (!window.ethereum) return
+    if (!window.ethereum) {
+      return;
+    }
     // @ts-ignore
-    setEthereum(window.ethereum)
-  })
+    setEthereum(window.ethereum);
+  });
 
   return (
     <Box sx={{ marginBottom: 3 }}>
@@ -207,10 +217,10 @@ const Header = () => {
         </Grid>
       </Grid>
     </Box>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
 
 //export default {
 //  name: "Header",

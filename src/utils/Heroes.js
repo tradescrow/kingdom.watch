@@ -1,20 +1,20 @@
-import { hexToNumber } from '@harmony-js/utils'
-import { valuateAllProfessions } from '@/utils/HeroValuation'
+import { hexToNumber } from '@harmony-js/utils';
+import { valuateAllProfessions } from '@/utils/HeroValuation';
 
-export const stats = new Map()
-stats.set('AGI', 'agility')
-stats.set('DEX', 'dexterity')
-stats.set('END', 'endurance')
-stats.set('HP', 'hp')
-stats.set('INT', 'intelligence')
-stats.set('LCK', 'luck')
-stats.set('MP', 'mp')
-stats.set('STAMINA', 'stamina')
-stats.set('STR', 'strength')
-stats.set('VIT', 'vitality')
-stats.set('WIS', 'wisdom')
+export const stats = new Map();
+stats.set('AGI', 'agility');
+stats.set('DEX', 'dexterity');
+stats.set('END', 'endurance');
+stats.set('HP', 'hp');
+stats.set('INT', 'intelligence');
+stats.set('LCK', 'luck');
+stats.set('MP', 'mp');
+stats.set('STAMINA', 'stamina');
+stats.set('STR', 'strength');
+stats.set('VIT', 'vitality');
+stats.set('WIS', 'wisdom');
 
-export const statGrowth = new Map()
+export const statGrowth = new Map();
 statGrowth.set('Warrior', {
   strength: 75,
   intelligence: 20,
@@ -24,7 +24,7 @@ statGrowth.set('Warrior', {
   vitality: 65,
   endurance: 65,
   dexterity: 70,
-})
+});
 statGrowth.set('Knight', {
   strength: 70,
   intelligence: 20,
@@ -34,7 +34,7 @@ statGrowth.set('Knight', {
   vitality: 75,
   endurance: 75,
   dexterity: 55,
-})
+});
 statGrowth.set('Thief', {
   strength: 55,
   intelligence: 25,
@@ -44,7 +44,7 @@ statGrowth.set('Thief', {
   vitality: 50,
   endurance: 40,
   dexterity: 55,
-})
+});
 statGrowth.set('Archer', {
   strength: 55,
   intelligence: 40,
@@ -54,7 +54,7 @@ statGrowth.set('Archer', {
   vitality: 50,
   endurance: 60,
   dexterity: 80,
-})
+});
 statGrowth.set('Priest', {
   strength: 30,
   intelligence: 70,
@@ -64,7 +64,7 @@ statGrowth.set('Priest', {
   vitality: 50,
   endurance: 60,
   dexterity: 30,
-})
+});
 statGrowth.set('Wizard', {
   strength: 30,
   intelligence: 80,
@@ -74,7 +74,7 @@ statGrowth.set('Wizard', {
   vitality: 50,
   endurance: 50,
   dexterity: 30,
-})
+});
 statGrowth.set('Monk', {
   strength: 60,
   intelligence: 25,
@@ -84,7 +84,7 @@ statGrowth.set('Monk', {
   vitality: 60,
   endurance: 55,
   dexterity: 60,
-})
+});
 statGrowth.set('Pirate', {
   strength: 70,
   intelligence: 20,
@@ -94,7 +94,7 @@ statGrowth.set('Pirate', {
   vitality: 60,
   endurance: 55,
   dexterity: 70,
-})
+});
 statGrowth.set('Paladin', {
   strength: 80,
   intelligence: 30,
@@ -104,7 +104,7 @@ statGrowth.set('Paladin', {
   vitality: 80,
   endurance: 80,
   dexterity: 40,
-})
+});
 statGrowth.set('DarkKnight', {
   strength: 85,
   intelligence: 70,
@@ -114,7 +114,7 @@ statGrowth.set('DarkKnight', {
   vitality: 75,
   endurance: 60,
   dexterity: 55,
-})
+});
 statGrowth.set('Summoner', {
   strength: 45,
   intelligence: 85,
@@ -124,7 +124,7 @@ statGrowth.set('Summoner', {
   vitality: 50,
   endurance: 50,
   dexterity: 45,
-})
+});
 statGrowth.set('Ninja', {
   strength: 50,
   intelligence: 50,
@@ -134,7 +134,7 @@ statGrowth.set('Ninja', {
   vitality: 50,
   endurance: 40,
   dexterity: 75,
-})
+});
 statGrowth.set('Dragoon', {
   strength: 80,
   intelligence: 50,
@@ -144,7 +144,7 @@ statGrowth.set('Dragoon', {
   vitality: 60,
   endurance: 70,
   dexterity: 65,
-})
+});
 statGrowth.set('Sage', {
   strength: 40,
   intelligence: 90,
@@ -154,7 +154,7 @@ statGrowth.set('Sage', {
   vitality: 60,
   endurance: 50,
   dexterity: 40,
-})
+});
 statGrowth.set('DreadKnight', {
   strength: 85,
   intelligence: 65,
@@ -164,9 +164,9 @@ statGrowth.set('DreadKnight', {
   vitality: 65,
   endurance: 75,
   dexterity: 75,
-})
+});
 
-export const rarity = ['Common', 'Uncommon', 'Rare', 'Legendary', 'Mythic']
+export const rarity = ['Common', 'Uncommon', 'Rare', 'Legendary', 'Mythic'];
 export const mainClass = {
   0: 'Warrior',
   1: 'Knight',
@@ -190,7 +190,7 @@ export const mainClass = {
   // 24: "Dragoon",
   //25: "Sage",
   28: 'DreadKnight',
-}
+};
 
 const statsGenesMap = {
   0: 'class',
@@ -205,7 +205,7 @@ const statsGenesMap = {
   9: 'statsUnknown1',
   10: 'element',
   11: 'statsUnknown2',
-}
+};
 const choices = {
   gender: { 1: 'male', 3: 'female' },
   background: {
@@ -546,143 +546,147 @@ const choices = {
     25: 25,
     28: 28,
   },
-}
+};
 
 function kai2dec(kai) {
-  const ALPHABET = '123456789abcdefghijkmnopqrstuvwx'
-  return ALPHABET.indexOf(kai)
+  const ALPHABET = '123456789abcdefghijkmnopqrstuvwx';
+  return ALPHABET.indexOf(kai);
 }
 
 function genesToKai(genes) {
-  const ALPHABET = '123456789abcdefghijkmnopqrstuvwx'
+  const ALPHABET = '123456789abcdefghijkmnopqrstuvwx';
   // eslint-disable-next-line no-undef
-  const BASE = BigInt(ALPHABET.length)
+  const BASE = BigInt(ALPHABET.length);
 
-  let buf = ''
+  let buf = '';
   while (genes >= BASE) {
-    const mod = genes % BASE
-    buf = ALPHABET[Number(mod)] + buf
-    genes = (genes - mod) / BASE
+    const mod = genes % BASE;
+    buf = ALPHABET[Number(mod)] + buf;
+    genes = (genes - mod) / BASE;
   }
 
   // Add the last 4 (finally).
-  buf = ALPHABET[Number(genes)] + buf
+  buf = ALPHABET[Number(genes)] + buf;
 
   // Pad with leading 0s.
-  buf = buf.padStart(48, '1')
+  buf = buf.padStart(48, '1');
 
-  return buf.replace(/(.{4})/g, '$1 ')
+  return buf.replace(/(.{4})/g, '$1 ');
 }
 
 export function convertGenes(_genes, genesMap) {
   // First, convert the genes to kai.
   // eslint-disable-next-line no-undef
-  const rawKai = genesToKai(BigInt(_genes.toString())).split(' ').join('')
+  const rawKai = genesToKai(BigInt(_genes.toString())).split(' ').join('');
 
-  const genes = [{}, {}, {}, {}]
+  const genes = [{}, {}, {}, {}];
 
-  let geneType = 3
+  let geneType = 3;
   // Remove spaces, and get every 4th character.
   for (const k in rawKai.split('')) {
     // eslint-disable-next-line no-prototype-builtins
     if (rawKai.hasOwnProperty(k)) {
-      const trait = genesMap[Math.floor(Number(k) / 4)]
+      const trait = genesMap[Math.floor(Number(k) / 4)];
 
-      const kai = rawKai[k]
-      const valueNum = kai2dec(kai)
+      const kai = rawKai[k];
+      const valueNum = kai2dec(kai);
 
-      genes[geneType--][trait] = choices[trait][valueNum]
-      if (geneType < 0) geneType = 3
+      genes[geneType--][trait] = choices[trait][valueNum];
+      if (geneType < 0) {
+        geneType = 3;
+      }
     }
   }
 
-  return [genes[0], genes]
+  return [genes[0], genes];
 }
 
 export function getStatGenes(genes) {
-  return convertGenes(genes, statsGenesMap)
+  return convertGenes(genes, statsGenesMap);
 }
 
 export function extractHeroData(hero, maxScores) {
-  const heroData = {}
-  const [statGenes, recessiveGenes] = getStatGenes(hero.info.statGenes)
+  const heroData = {};
+  const [statGenes, recessiveGenes] = getStatGenes(hero.info.statGenes);
 
-  heroData['id'] = hero.id.toString()
-  heroData['generation'] = hero.info.generation * 1
-  heroData['level'] = hero.state.level * 1
-  heroData['xp'] = hero.state.xp * 1
-  heroData['rarity'] = rarity[hero.info.rarity]
-  heroData['rarityNum'] = hero.info.rarity
-  heroData['mainClass'] = mainClass[hero.info.class]
-  heroData['subClass'] = mainClass[hero.info.subClass]
+  heroData['id'] = hero.id.toString();
+  heroData['generation'] = hero.info.generation * 1;
+  heroData['level'] = hero.state.level * 1;
+  heroData['xp'] = hero.state.xp * 1;
+  heroData['rarity'] = rarity[hero.info.rarity];
+  heroData['rarityNum'] = hero.info.rarity;
+  heroData['mainClass'] = mainClass[hero.info.class];
+  heroData['subClass'] = mainClass[hero.info.subClass];
 
-  heroData['name'] = `${hero.info.firstName} ${hero.info.lastName}`
+  heroData['name'] = `${hero.info.firstName} ${hero.info.lastName}`;
 
-  heroData['profession'] = statGenes.profession
+  heroData['profession'] = statGenes.profession;
 
-  heroData['greenGene'] = statGenes.statBoost1
-  heroData['blueGene'] = statGenes.statBoost2
+  heroData['greenGene'] = statGenes.statBoost1;
+  heroData['blueGene'] = statGenes.statBoost2;
 
-  heroData['recessiveGenes'] = recessiveGenes
+  heroData['recessiveGenes'] = recessiveGenes;
 
-  heroData['stats'] = {}
-  heroData['pStatGrowth'] = {}
-  heroData['sStatGrowth'] = {}
+  heroData['stats'] = {};
+  heroData['pStatGrowth'] = {};
+  heroData['sStatGrowth'] = {};
 
   for (const [stat, hexValue] of Object.entries(hero.primaryStatGrowth)) {
-    heroData['pStatGrowth'][stat] = hexToNumber('0x' + hexValue)
+    heroData['pStatGrowth'][stat] = hexToNumber('0x' + hexValue);
   }
 
   for (const [stat, hexValue] of Object.entries(hero.secondaryStatGrowth)) {
-    heroData['sStatGrowth'][stat] = hexToNumber('0x' + hexValue)
+    heroData['sStatGrowth'][stat] = hexToNumber('0x' + hexValue);
   }
 
   for (let stat of stats.values()) {
-    heroData['stats'][stat] = hexToNumber('0x' + hero.stats[stat])
+    heroData['stats'][stat] = hexToNumber('0x' + hero.stats[stat]);
   }
 
-  const profScore = valuateAllProfessions(heroData)
-  heroData['bestRelativeScore'] = 0
-  heroData['bestRelativeProfession'] = ''
+  const profScore = valuateAllProfessions(heroData);
+  heroData['bestRelativeScore'] = 0;
+  heroData['bestRelativeProfession'] = '';
 
   if (maxScores) {
-    const relativeScores = {}
+    const relativeScores = {};
 
     for (let prof of ['mining', 'fishing', 'gardening', 'foraging']) {
-      relativeScores[prof] = (profScore[prof] / maxScores[prof]) * 100
+      relativeScores[prof] = (profScore[prof] / maxScores[prof]) * 100;
 
       if (relativeScores[prof] > heroData['bestRelativeScore']) {
-        heroData['bestRelativeScore'] = relativeScores[prof]
-        heroData['bestRelativeProfession'] = prof
+        heroData['bestRelativeScore'] = relativeScores[prof];
+        heroData['bestRelativeProfession'] = prof;
       }
     }
 
-    heroData['relativeScores'] = relativeScores
+    heroData['relativeScores'] = relativeScores;
   }
 
-  heroData['professionScores'] = profScore
-  heroData['bestProfession'] = profScore.bestProfession
+  heroData['professionScores'] = profScore;
+  heroData['bestProfession'] = profScore.bestProfession;
   heroData['bestProfessionScore'] =
-    profScore[profScore.bestProfession].toFixed(0)
+    profScore[profScore.bestProfession].toFixed(0);
 
-  const nextSummon = new Date(hero.summoningInfo.nextSummonTime * 1000)
+  const nextSummon = new Date(hero.summoningInfo.nextSummonTime * 1000);
 
-  heroData['nextSummonTime'] = nextSummon.toISOString()
+  heroData['nextSummonTime'] = nextSummon.toISOString();
   heroData['minBeforeSummon'] = (
     (nextSummon.valueOf() - Date.now()) /
     60000
-  ).toFixed(0)
-  heroData['maxSummons'] = hexToNumber('0x' + hero.summoningInfo.maxSummons)
-  heroData['summonsDone'] = hexToNumber('0x' + hero.summoningInfo.summons)
+  ).toFixed(0);
+  heroData['maxSummons'] = hexToNumber('0x' + hero.summoningInfo.maxSummons);
+  heroData['summonsDone'] = hexToNumber('0x' + hero.summoningInfo.summons);
 
-  if (hero.info.generation * 1 === 0) heroData['summonsLeft'] = Infinity
-  else
-    heroData['summonsLeft'] = heroData['maxSummons'] - heroData['summonsDone']
+  if (hero.info.generation * 1 === 0) {
+    heroData['summonsLeft'] = Infinity;
+  } else {
+    heroData['summonsLeft'] = heroData['maxSummons'] - heroData['summonsDone'];
+  }
 
   heroData['staminaFullIn'] = (
     (hero.state.staminaFullAt * 1000 - Date.now()) /
     60000
-  ).toFixed(0)
+  ).toFixed(0);
 
-  return heroData
+  return heroData;
 }

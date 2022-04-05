@@ -1,13 +1,13 @@
-const { Contract, providers, utils } = require('ethers')
-const { JsonRpcProvider } = providers
-export const { formatUnits, formatEther } = utils
+const { Contract, providers, utils } = require('ethers');
+const { JsonRpcProvider } = providers;
+export const { formatUnits, formatEther } = utils;
 
 export const RPCs = {
   sd: new JsonRpcProvider('https://harmony-0-rpc.gateway.pokt.network'),
   cv: new JsonRpcProvider(
     'https://subnets.avax.network/defi-kingdoms/dfk-chain/rpc'
   ),
-}
+};
 
 export const contractJson = {
   jewel: require('../data/Jewel.json'),
@@ -19,7 +19,7 @@ export const contractJson = {
   uni: require('../data/UniSwap.json'),
   erc20: require('../data/ERC20.json'),
   profile: require('../data/profile.json'),
-}
+};
 
 export const contractAddrs = {
   sd: {
@@ -34,7 +34,7 @@ export const contractAddrs = {
     gardener: '0x57Dec9cC7f492d6583c773e2E7ad66dcDc6940Fb',
     profile: '',
   },
-}
+};
 
 export const contracts = {
   sd: {
@@ -81,19 +81,19 @@ export const contracts = {
       RPCs.cv
     ),
   },
-}
+};
 
 export const expansionSet = {
   sd: 0,
   cv: 0,
-}
+};
 
 export const expansionArraySet = {
   sd: [],
   cv: [],
-}
+};
 
 export const expansionObjSet = {
   sd: {},
   cv: {},
-}
+};

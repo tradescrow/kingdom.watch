@@ -1,9 +1,9 @@
-import React from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
-import './App.css'
+import './App.css';
 
-import Header from './components/generic/Header'
+import Header from './components/generic/Header';
 //import Footer from '@/components/generic/Footer'
 //import About from "@/components/about/About";
 //import DevWatch from "@/components/dev/DevWatch";
@@ -27,7 +27,7 @@ function App() {
     <div className="App">
       <Header />
     </div>
-  )
+  );
 }
 // <Footer/>
 // <Routes>
@@ -50,4 +50,4 @@ function App() {
 //     <Route path='/whales' element={<Whales />} />
 //     <Route path="/*" element={<Navigate replace to="/" />} />
 // </Routes>
-export default App
+export default App;
