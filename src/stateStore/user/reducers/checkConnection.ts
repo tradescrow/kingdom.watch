@@ -16,7 +16,6 @@ export const checkConnection = createAsyncThunk<
 			return rejectWithValue("not connected");
 		}
 	} catch (e: any) {
-		console.log(e);
 		return rejectWithValue(e.message);
 	}
 });

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppSelector } from "hooks/useAppSelector";
 import { useAppDispatch } from "hooks/useAppDispatch";
 import {
@@ -30,17 +30,13 @@ const NavButtonStyle = {
 const Header = () => {
 	const dispatch = useAppDispatch();
 	const { enqueueSnackbar } = useSnackbar();
-	const [btnDisabled, setBtnDisabled] = useState<boolean>(false);
 
 	const userStatus = useAppSelector((state) => state.user.status);
 
 	const connect = async () => {
 		try {
 			await dispatch(connectToWallet()).unwrap();
-			await dispatch(clearErrors());
-			setBtnDisabled(true);
 		} catch (e: any) {
-			console.log(e);
 			enqueueSnackbar(e, { variant: "error" });
 		}
 	};
@@ -181,13 +177,15 @@ const Header = () => {
 					/>
 					<ButtonGroup sx={{ mr: 2 }}>
 						<Button variant="contained">Set</Button>
-						<Button
-							variant="contained"
-							disabled={btnDisabled}
-							onClick={connect}
-						>
-							Connect
-						</Button>
+						{userStatus === "connected" ? (
+							<Button variant="contained" color="success" disabled={false}>
+								connected
+							</Button>
+						) : (
+							<Button variant="contained" disabled={false} onClick={connect}>
+								connect
+							</Button>
+						)}
 					</ButtonGroup>
 				</Grid>
 			</Grid>

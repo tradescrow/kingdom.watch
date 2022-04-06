@@ -4,7 +4,7 @@ export const connectToWallet = createAsyncThunk<
 	string,
 	void,
 	{ rejectValue: any }
->("user/fetchAddress", async (_, { rejectWithValue }) => {
+>("user/connectToWallet", async (_, { rejectWithValue }) => {
 	try {
 		// @ts-ignore
 		const accounts = await ethereum.request({

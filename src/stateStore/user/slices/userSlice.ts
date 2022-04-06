@@ -20,7 +20,6 @@ export const userSlice = createSlice({
 	initialState,
 	reducers: {
 		clearErrors: (state) => {
-			state.status = "idle";
 			state.errorMessage = null;
 
 			return state;
@@ -32,9 +31,9 @@ export const userSlice = createSlice({
 				state.status = "loading";
 			})
 			.addCase(connectToWallet.fulfilled, (state, { payload }) => {
-				console.log(payload);
 				state.status = "connected";
 				state.address = payload;
+				state.errorMessage = null;
 			})
 			.addCase(connectToWallet.rejected, (state, { payload }) => {
 				state.status = "failed";
@@ -48,9 +47,8 @@ export const userSlice = createSlice({
 				state.status = "connected";
 				state.address = payload;
 			})
-			.addCase(checkConnection.rejected, (state, { payload }) => {
+			.addCase(checkConnection.rejected, (state) => {
 				state.status = "not connected";
-				state.errorMessage = payload;
 			});
 	},
 });
