@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import userReducer from "stateStore/user/slices/userSlice";
+import userReducer from "./user/slices/userSlice";
+import epochReducer from "./epoch/slices/epochSlice";
 
 export const store = configureStore({
 	reducer: {
 		user: userReducer,
+		epoch: epochReducer
 	},
 });
 

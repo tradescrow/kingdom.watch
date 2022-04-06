@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import './App.css';
 
 import Header from './components/generic/Header'
+import Epoch from "./components/epoch/Epoch";
 //import Footer from '@/components/generic/Footer'
 //import About from "@/components/about/About";
 //import DevWatch from "@/components/dev/DevWatch";
@@ -11,7 +12,6 @@ import Header from './components/generic/Header'
 //import Whales from "@/data/Whales";
 //import Personal from "@/components/personal/Personal";
 //import PersonalFront from "@/components/personal/PersonalFront";
-//import Epoch from "@/components/epoch/Epoch";
 //import Feedback from "@/components/feedback/Feedback";
 //import FeedbackThanks from "@/components/feedback/FeedbackThanks";
 //import WishingWell from "@/components/quest/WishingWell";
@@ -26,8 +26,9 @@ function App() {
   return (
     <div className="App">
       <Header />
-
-
+      <Routes>
+        <Route path='/epochs' element={<Epoch />} />
+      </Routes>
     </div>
   );
 }

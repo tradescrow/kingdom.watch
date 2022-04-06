@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState, AppThunk } from "stateStore/store";
+import { RootState } from "../../store";
 import { connectToWallet } from "../reducers/connectToWallet";
 import { checkConnection } from "../reducers/checkConnection";
 
