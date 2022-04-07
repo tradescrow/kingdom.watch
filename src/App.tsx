@@ -1,10 +1,10 @@
 import React from 'react';
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import './App.css';
 
-import Header from './components/generic/Header'
-import Epoch from "./components/epoch/Epoch";
+import Header from './components/generic/Header';
+import Epoch from './components/epoch/Epoch';
 //import Footer from '@/components/generic/Footer'
 //import About from "@/components/about/About";
 //import DevWatch from "@/components/dev/DevWatch";
@@ -27,7 +27,7 @@ function App() {
     <div className="App">
       <Header />
       <Routes>
-        <Route path='/epochs' element={<Epoch />} />
+        <Route path="/epochs" element={<Epoch />} />
       </Routes>
     </div>
   );
