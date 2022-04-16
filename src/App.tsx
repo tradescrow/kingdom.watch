@@ -5,14 +5,14 @@ import './App.css';
 
 import Header from './components/generic/Header';
 import Epoch from './components/epoch/Epoch';
-//import Footer from '@/components/generic/Footer'
-//import About from "@/components/about/About";
+import Footer from './components/generic/Footer';
+import About from './components/about/About';
 //import DevWatch from "@/components/dev/DevWatch";
 //import BankWatch from "@/components/bank/BankWatch";
 //import Whales from "@/data/Whales";
 //import Personal from "@/components/personal/Personal";
 //import PersonalFront from "@/components/personal/PersonalFront";
-//import Feedback from "@/components/feedback/Feedback";
+import Feedback from './components/feedback/Feedback';
 //import FeedbackThanks from "@/components/feedback/FeedbackThanks";
 //import WishingWell from "@/components/quest/WishingWell";
 //import QuestFront from "@/components/quest/QuestFront";
@@ -28,7 +28,10 @@ function App() {
       <Header />
       <Routes>
         <Route path="/epochs" element={<Epoch />} />
+        <Route path="/feedback" element={<Feedback />} />
+        <Route path="/about" element={<About />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

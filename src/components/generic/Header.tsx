@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import {
@@ -15,7 +15,8 @@ import { useSnackbar } from 'notistack';
 import {
   connectToWallet,
   checkConnection,
-  clearErrors,
+  selectAddress,
+  selectStatus,
 } from 'stateStore/user/slices/userSlice';
 
 const NavLinkStyle = {
@@ -30,8 +31,14 @@ const NavButtonStyle = {
 const Header = () => {
   const dispatch = useAppDispatch();
   const { enqueueSnackbar } = useSnackbar();
+  const [userAddressInput, setUserAddressInput] = useState<string>('');
 
-  const userStatus = useAppSelector((state) => state.user.status);
+  const handleChange = (event: any) => {
+    setUserAddressInput(event.target.value);
+  };
+
+  const userStatus = useAppSelector(selectStatus);
+  const userAddress = useAppSelector(selectAddress);
 
   const connect = async () => {
     try {
@@ -46,6 +53,10 @@ const Header = () => {
       dispatch(checkConnection());
     }
   }, [userStatus, dispatch]);
+
+  useEffect(() => {
+    setUserAddressInput(userAddress);
+  }, [userAddress, dispatch]);
 
   return (
     <Box sx={{ marginBottom: 3 }}>
@@ -174,15 +185,22 @@ const Header = () => {
             InputProps={{ style: { color: 'white' } }}
             InputLabelProps={{ style: { color: 'grey' } }}
             color="primary"
+            value={userAddressInput}
+            onChange={handleChange}
           />
           <ButtonGroup sx={{ mr: 2 }}>
             <Button variant="contained">Set</Button>
             {userStatus === 'connected' ? (
-              <Button variant="contained" color="success" disabled={false}>
+              <Button variant="contained" disabled={true}>
                 connected
               </Button>
             ) : (
-              <Button variant="contained" disabled={false} onClick={connect}>
+              <Button
+                variant="contained"
+                color="success"
+                disabled={false}
+                onClick={connect}
+              >
                 connect
               </Button>
             )}
