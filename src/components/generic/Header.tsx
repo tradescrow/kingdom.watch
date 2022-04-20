@@ -212,34 +212,3 @@ const Header = () => {
 };
 
 export default Header;
-
-//export default {
-//  name: "Header",
-//  data() {
-//    return {
-//      copied: false,
-//      inputUserAddress: "",
-
-//    }
-//  },
-//  methods: {
-//    ...mapActions(["setUserAddress"]),
-//    copyTipJarToClipBoard() {
-//      navigator.clipboard.writeText("0x0e9fbabfac3a56d076b62d48964bd7bf057876d7")
-//      this.$gtag.event("CopyTipJarHeader")
-//      this.copied = true
-//      setTimeout(() => {
-//        this.copied = false
-//      }, 5000)
-//    },
-
-//  computed: {
-//    ...mapGetters(["storeUserAddress"])
-//  },
-//  mounted() {
-//    this.inputUserAddress = this.storeUserAddress
-//    this.checkConnected()
-//  }
-//}
-//
-//
