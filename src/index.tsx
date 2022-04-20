@@ -15,7 +15,7 @@ render(
     <Provider store={store}>
       <BrowserRouter>
         <ThemeProvider theme={Theme}>
-          <CssBaseline />
+          <CssBaseline enableColorScheme />
           <SnackbarProvider maxSnack={3}>
             <App />
           </SnackbarProvider>
